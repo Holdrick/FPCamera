@@ -82,12 +82,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="GLFWRunner.h" />
     <ClInclude Include="GraphicsObject.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ShaderObject.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GLFWRunner.cpp" />
     <ClCompile Include="GraphicsObject.cpp" />
     <ClCompile Include="Main.cpp" />

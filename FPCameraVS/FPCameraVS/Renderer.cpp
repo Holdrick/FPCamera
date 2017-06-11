@@ -14,7 +14,7 @@ void Renderer::addGraphicsObject(string filename, vec3 startPosition, GLfloat sc
 }
 
 mat4 scaleMatrix = mat4(1.0f);
-void Renderer::render(GLuint shaderID, GLuint modelPtr, GLuint viewPtr, GLuint projPtr, GLuint ambPtr, mat4 rot, float scalar)
+void Renderer::render(GLuint shaderID, GLuint modelPtr, GLuint viewPtr, GLuint projPtr, GLuint ambPtr, mat4 rot, mat4 trans, float scalar)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glUseProgram(shaderID);
@@ -23,7 +23,7 @@ void Renderer::render(GLuint shaderID, GLuint modelPtr, GLuint viewPtr, GLuint p
 
 	//Model View Matrix setup
 	mat4 modelView = lookAt(vec3(0.0f, 5.0f, -10.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
-	modelView *= rot * scaleMatrix * mat4(1.0f);
+	modelView *= rot * scaleMatrix * trans;
 
 	glUniformMatrix4fv(modelPtr, 1, GL_FALSE, value_ptr(modelView));
 
