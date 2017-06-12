@@ -1,5 +1,4 @@
 #include "GLFWRunner.h"
-#include "Camera.h"
 
 void GLFWRunner::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)

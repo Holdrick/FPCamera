@@ -5,6 +5,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "Renderer.h"
+#include "Camera.h"
 
 using namespace std;
 using namespace glm;
