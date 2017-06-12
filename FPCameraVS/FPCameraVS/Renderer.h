@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "GraphicsObject.h"
-#include <list>
+#include "GlobalConstants.h"
 
 class Renderer {
 private:

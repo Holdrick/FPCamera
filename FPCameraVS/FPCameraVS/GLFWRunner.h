@@ -1,3 +1,5 @@
+#pragma once
+
 #include "GraphicsObject.h"
 #include "ShaderObject.h"
 #include <GL/glew.h>
@@ -6,7 +8,6 @@
 
 using namespace std;
 using namespace glm;
-
 
 class GLFWRunner {
 private:

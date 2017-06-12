@@ -1,9 +1,5 @@
 #include "GLFWRunner.h"
-
-// Transformation matrices
-extern mat4 rotMatrix = mat4(1.0f);
-extern mat4 transMatrix = mat4(1.0f);
-extern float scalar = 1.0f;
+#include "Camera.h"
 
 void GLFWRunner::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -12,19 +8,19 @@ void GLFWRunner::key_callback(GLFWwindow* window, int key, int scancode, int act
 		glfwSetWindowShouldClose(window, GL_TRUE);
 
 	if (key == GLFW_KEY_SPACE && (action == GLFW_PRESS || action == GLFW_REPEAT))
-		transMatrix = translate(mat4(1.0f), vec3(0.0f, 1.0f, 0.0f)) * transMatrix;
+		Camera::moveUp();
 	if (key == GLFW_KEY_LEFT_SHIFT && (action == GLFW_PRESS || action == GLFW_REPEAT))
-		transMatrix = translate(mat4(1.0f), vec3(0.0f, -1.0f, 0.0f)) * transMatrix;
+		Camera::moveDown();
 
 	if (key == GLFW_KEY_W && (action == GLFW_PRESS || action == GLFW_REPEAT))
-		transMatrix = translate(mat4(1.0f), vec3(0.0f, 0.0f, 1.0f)) * transMatrix;
+		Camera::moveForward();
 	if (key == GLFW_KEY_S && (action == GLFW_PRESS || action == GLFW_REPEAT))
-		transMatrix = translate(mat4(1.0f), vec3(0.0f, 0.0f, -1.0f)) * transMatrix;
+		Camera::moveBackward();
 
 	if (key == GLFW_KEY_D && (action == GLFW_PRESS || action == GLFW_REPEAT))
-		transMatrix = translate(mat4(1.0f), vec3(-1.0f, 0.0f, 0.0f)) * transMatrix;
+		Camera::moveRight();
 	if (key == GLFW_KEY_A && (action == GLFW_PRESS || action == GLFW_REPEAT))
-		transMatrix = translate(mat4(1.0f), vec3(1.0f, 0.0f, 0.0f)) * transMatrix;
+		Camera::moveLeft();
 
 	/*	if (key == GLFW_KEY_UP && (action == GLFW_PRESS || action == GLFW_REPEAT))
 			rotMatrix = rotate(mat4(1.0f), 0.5f, vec3(1.0f, 0.0f, 0.0f)) * rotMatrix;

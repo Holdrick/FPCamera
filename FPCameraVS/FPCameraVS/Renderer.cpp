@@ -11,8 +11,6 @@ void Renderer::addGraphicsObject(string filename, vec3 startPosition, GLfloat sc
 	graphicsObjects.push_back(gobj);
 }
 
-mat4 scaleMatrix = mat4(1.0f);
-
 void Renderer::render(GLuint shaderID, GLuint modelPtr, GLuint viewPtr, GLuint projPtr, GLuint ambPtr, mat4 rot, mat4 trans, float scalar) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glUseProgram(shaderID);
