@@ -2,28 +2,21 @@
 
 static GLubyte shaderText[8192];
 
-ShaderObject::ShaderObject()
-{
+ShaderObject::ShaderObject() {
 }
 
-ShaderObject::~ShaderObject()
-{
+ShaderObject::~ShaderObject() {
 	glDeleteProgram(shaderID);
 }
 
-GLuint ShaderObject::getUniformLocation(const char* uniformID)
-{
-	return glGetUniformLocation(shaderID, uniformID);
-}
+GLuint ShaderObject::getUniformLocation(const char* uniformID) { return glGetUniformLocation(shaderID, uniformID); }
 
-bool ShaderObject::loadShaderFile(const char* filename, GLuint shader)
-{
+bool ShaderObject::loadShaderFile(const char* filename, GLuint shader) {
 	GLint shaderLength = 0;
 	FILE* fp;
 
 	fopen_s(&fp, filename, "r");
-	if (fp != NULL)
-	{
+	if (fp != NULL) {
 		while (fgetc(fp) != EOF)
 			shaderLength++;
 
@@ -33,10 +26,7 @@ bool ShaderObject::loadShaderFile(const char* filename, GLuint shader)
 
 		fclose(fp);
 	}
-	else
-	{
-		return false;
-	}
+	else { return false; }
 
 	GLchar* fsStringPtr[1];
 	fsStringPtr[0] = (GLchar *)((const char*)shaderText);
@@ -45,8 +35,7 @@ bool ShaderObject::loadShaderFile(const char* filename, GLuint shader)
 	return true;
 }
 
-void ShaderObject::setupShaders(string vsFilename, string fsFilename)
-{
+void ShaderObject::setupShaders(string vsFilename, string fsFilename) {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
 
@@ -55,15 +44,13 @@ void ShaderObject::setupShaders(string vsFilename, string fsFilename)
 	shaderID = (GLuint)NULL;
 	GLint testVal;
 
-	if (!loadShaderFile(vsFilename.c_str(), hVertexShader))
-	{
+	if (!loadShaderFile(vsFilename.c_str(), hVertexShader)) {
 		glDeleteShader(hVertexShader);
 		glDeleteShader(hFragmentShader);
 		cout << "The shader " << vsFilename << " could not be found." << endl;
 	}
 
-	if (!loadShaderFile(fsFilename.c_str(), hFragmentShader))
-	{
+	if (!loadShaderFile(fsFilename.c_str(), hFragmentShader)) {
 		glDeleteShader(hVertexShader);
 		glDeleteShader(hFragmentShader);
 		cout << "The shader " << fsFilename << " could not be found." << endl;
@@ -74,8 +61,7 @@ void ShaderObject::setupShaders(string vsFilename, string fsFilename)
 
 	// Check for any error generated during shader compilation
 	glGetShaderiv(hVertexShader, GL_COMPILE_STATUS, &testVal);
-	if (testVal == GL_FALSE)
-	{
+	if (testVal == GL_FALSE) {
 		char source[8192];
 		char infoLog[8192];
 		glGetShaderSource(hVertexShader, 8192, NULL, source);
@@ -86,8 +72,7 @@ void ShaderObject::setupShaders(string vsFilename, string fsFilename)
 		glDeleteShader(hFragmentShader);
 	}
 	glGetShaderiv(hFragmentShader, GL_COMPILE_STATUS, &testVal);
-	if (testVal == GL_FALSE)
-	{
+	if (testVal == GL_FALSE) {
 		char source[8192];
 		char infoLog[8192];
 		glGetShaderSource(hFragmentShader, 8192, NULL, source);
@@ -109,8 +94,7 @@ void ShaderObject::setupShaders(string vsFilename, string fsFilename)
 	glDeleteShader(hVertexShader);
 	glDeleteShader(hFragmentShader);
 	glGetProgramiv(shaderID, GL_LINK_STATUS, &testVal);
-	if (testVal == GL_FALSE)
-	{
+	if (testVal == GL_FALSE) {
 		char infoLog[1024];
 		glGetProgramInfoLog(shaderID, 1024, NULL, infoLog);
 		cout << "The shader program (" << vsFilename << " + " << fsFilename << ") failed to link:" << endl << (const char*)infoLog << endl;

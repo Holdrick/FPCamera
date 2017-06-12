@@ -4,7 +4,7 @@
 #define VERTEX_DATA 0
 #define NORMAL_DATA 1
 
-GraphicsObject::GraphicsObject(vec3 position, GLfloat scaleFactor){
+GraphicsObject::GraphicsObject(vec3 position, GLfloat scaleFactor) {
 	this->position = position;
 	this->scaleFactor = scaleFactor;
 }
@@ -32,7 +32,7 @@ void GraphicsObject::readObj(string filename) {
 
 				vertices.push_back(1.0f);
 			}
-			if (str == "vn"){
+			if (str == "vn") {
 				reader >> f;
 				normals.push_back(f);
 
@@ -42,7 +42,7 @@ void GraphicsObject::readObj(string filename) {
 				reader >> f;
 				normals.push_back(f);
 			}
-			if (str == "vt"){
+			if (str == "vt") {
 				reader >> f;
 				texVertices.push_back(f);
 
@@ -81,12 +81,10 @@ void GraphicsObject::readObj(string filename) {
 		}
 		reader.close();
 	}
-	else{
-		cout << "Couldn't open file \"" << filename << "\"" << endl;
-	}
+	else { cout << "Couldn't open file \"" << filename << "\"" << endl; }
 }
 
-void GraphicsObject::initializeObjectInMemory(string filename){
+void GraphicsObject::initializeObjectInMemory(string filename) {
 	readObj(filename);
 	findCenter();
 	findDiameter();
@@ -94,12 +92,11 @@ void GraphicsObject::initializeObjectInMemory(string filename){
 	buffer();
 }
 
-void GraphicsObject::rearrangeData()
-{
+void GraphicsObject::rearrangeData() {
 	vector<GLfloat> verts, norms, tex;
 	GLuint vi, ni, ti;
 
-	for (GLuint i = 0; i < indices.size(); i++){
+	for (GLuint i = 0; i < indices.size(); i++) {
 		vi = indices[i] * 4;
 		verts.push_back(vertices[vi]);
 		verts.push_back(vertices[vi + 1]);
@@ -122,8 +119,7 @@ void GraphicsObject::rearrangeData()
 
 }
 
-void GraphicsObject::buffer()
-{
+void GraphicsObject::buffer() {
 	GLuint offset = 0;
 
 	glGenBuffers(1, &VBO);
@@ -131,16 +127,16 @@ void GraphicsObject::buffer()
 	glBufferData(GL_ARRAY_BUFFER, bufferSize(), NULL, GL_STATIC_DRAW);
 
 	glBufferSubData(GL_ARRAY_BUFFER,
-		offset,
-		getSize(VERTEX_DATA),
-		getData(VERTEX_DATA));
+	                offset,
+	                getSize(VERTEX_DATA),
+	                getData(VERTEX_DATA));
 
 	offset += getSize(VERTEX_DATA);
 
 	glBufferSubData(GL_ARRAY_BUFFER,
-		offset,
-		getSize(NORMAL_DATA),
-		getData(NORMAL_DATA));
+	                offset,
+	                getSize(NORMAL_DATA),
+	                getData(NORMAL_DATA));
 
 	offset = 0;
 
@@ -161,8 +157,7 @@ void GraphicsObject::buffer()
 	offset += getSize(NORMAL_DATA);
 }
 
-void GraphicsObject::draw(mat4 modelView, GLuint modelPtr, GLuint viewPtr, GLuint projPtr, GLuint ambPtr, mat4 rot, float scalar)
-{
+void GraphicsObject::draw(mat4 modelView, GLuint modelPtr, GLuint viewPtr, GLuint projPtr, GLuint ambPtr, mat4 rot, float scalar) {
 	//modelView = translate(modelView, position - center);
 	//glUniformMatrix4fv(modelPtr, 1, GL_FALSE, value_ptr(modelView));
 
@@ -170,18 +165,14 @@ void GraphicsObject::draw(mat4 modelView, GLuint modelPtr, GLuint viewPtr, GLuin
 	glDrawArrays(GL_TRIANGLES, 0, indices.size());
 }
 
-void GraphicsObject::draw(vec3 ambient, GLuint amb){
+void GraphicsObject::draw(vec3 ambient, GLuint amb) {
 	glUniform3f(amb, ambient.x, ambient.y, ambient.z);
 	//glDrawArrays(GL_TRIANGLES, 0, vertices.size()/4);
 }
 
-GLuint GraphicsObject::bufferSize()
-{
-	return sizeof(GLfloat)* (vertices.size() + normals.size());
-}
+GLuint GraphicsObject::bufferSize() { return sizeof(GLfloat) * (vertices.size() + normals.size()); }
 
-GLfloat* GraphicsObject::getData(GLuint type)
-{
+GLfloat* GraphicsObject::getData(GLuint type) {
 	if (type == 0)
 		return vertices.data();
 	else if (type == 1)
@@ -190,18 +181,16 @@ GLfloat* GraphicsObject::getData(GLuint type)
 		return texVertices.data();
 }
 
-GLuint GraphicsObject::getSize(GLuint type)
-{
+GLuint GraphicsObject::getSize(GLuint type) {
 	if (type == 0)
-		return sizeof(GLfloat)* vertices.size();
+		return sizeof(GLfloat) * vertices.size();
 	else if (type == 1)
-		return sizeof(GLfloat)* normals.size();
+		return sizeof(GLfloat) * normals.size();
 	else
-		return sizeof(GLfloat)* texVertices.size();
+		return sizeof(GLfloat) * texVertices.size();
 }
 
-void GraphicsObject::findCenter()
-{
+void GraphicsObject::findCenter() {
 	vec3 diff, center;
 	vec3 max = findMax();
 	vec3 min = findMin();
@@ -211,13 +200,13 @@ void GraphicsObject::findCenter()
 	center.z = (max.z - min.z) / 2;
 }
 
-void GraphicsObject::findDiameter(){
+void GraphicsObject::findDiameter() {
 	vec3 start;
 
 	start = vec3(vertices[0], vertices[1], vertices[2]);
 	setDiameter(0.0f);
 
-	for (GLuint i = 4; i < vertices.size(); i += 4){
+	for (GLuint i = 4; i < vertices.size(); i += 4) {
 		vec3 end = vec3(vertices[i], vertices[i + 1], vertices[i + 2]);
 		GLfloat len = length(end - start);
 		if (len > diameter)
@@ -225,14 +214,14 @@ void GraphicsObject::findDiameter(){
 	}
 }
 
-vec3 GraphicsObject::findMax(){
+vec3 GraphicsObject::findMax() {
 	vec3 max;
 
 	max.x = vertices[0];
 	max.y = vertices[1];
 	max.z = vertices[2];
 
-	for (GLuint i = 4; i < vertices.size(); i += 4){
+	for (GLuint i = 4; i < vertices.size(); i += 4) {
 		if (vertices[i] > max.x)
 			max.x = vertices[i];
 
@@ -246,14 +235,14 @@ vec3 GraphicsObject::findMax(){
 	return max;
 }
 
-vec3 GraphicsObject::findMin(){
+vec3 GraphicsObject::findMin() {
 	vec3 min;
 
 	min.x = vertices[0];
 	min.y = vertices[1];
 	min.z = vertices[2];
 
-	for (GLuint i = 4; i < vertices.size(); i += 4){
+	for (GLuint i = 4; i < vertices.size(); i += 4) {
 		if (vertices[i] < min.x)
 			min.x = vertices[i];
 

@@ -15,9 +15,9 @@ using namespace std;
 using namespace glm;
 
 
-class GraphicsObject{
+class GraphicsObject {
 public:
-  GraphicsObject(vec3 position, GLfloat scaleFactor);
+	GraphicsObject(vec3 position, GLfloat scaleFactor);
 
 	void readObj(string filename);
 	void initializeObjectInMemory(string filename);
@@ -38,14 +38,14 @@ public:
 	vector<GLfloat> vertices, normals, texVertices;
 	vec3 center;
 
-	void setPosition(vec3 position){ this->position = position; }
-	vec3 getPosition(){ return position; }
+	void setPosition(vec3 position) { this->position = position; }
+	vec3 getPosition() { return position; }
 
-	void setScaleFactor(GLfloat scaleFactor){ this->scaleFactor = scaleFactor; }
-	GLfloat getScaleFactor(){ return scaleFactor; }
+	void setScaleFactor(GLfloat scaleFactor) { this->scaleFactor = scaleFactor; }
+	GLfloat getScaleFactor() { return scaleFactor; }
 
-	void setDiameter(GLfloat diameter){ this->diameter = diameter; }
-	GLfloat getDiameter(){ return diameter; }
+	void setDiameter(GLfloat diameter) { this->diameter = diameter; }
+	GLfloat getDiameter() { return diameter; }
 private:
 	GLuint VAO, VBO;
 	vec3 position;

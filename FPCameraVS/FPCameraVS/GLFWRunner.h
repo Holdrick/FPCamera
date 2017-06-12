@@ -8,7 +8,7 @@ using namespace std;
 using namespace glm;
 
 
-class GLFWRunner{
+class GLFWRunner {
 private:
 	GLuint VAO;
 	GLuint shaderProgram;
@@ -31,7 +31,10 @@ private:
 public:
 	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	static void mouse_callback(GLFWwindow* window, int button, int action, int mods);
-	GLFWRunner(){}
+
+	GLFWRunner() {
+	}
+
 	int runGLFW();
 
 };

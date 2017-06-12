@@ -2,8 +2,7 @@
 #include "GraphicsObject.h"
 #include <list>
 
-class Renderer
-{
+class Renderer {
 private:
 	vector<GraphicsObject*> graphicsObjects;
 public:

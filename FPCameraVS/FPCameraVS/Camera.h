@@ -1,7 +1,6 @@
 #pragma once
 
-static class Camera
-{
+static class Camera {
 private:
 
 };
