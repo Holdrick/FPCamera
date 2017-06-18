@@ -158,8 +158,8 @@ void GraphicsObject::buffer() {
 }
 
 void GraphicsObject::draw(mat4 modelView, GLuint modelPtr, GLuint viewPtr, GLuint projPtr, GLuint ambPtr, mat4 rot, float scalar) {
-	//modelView = translate(modelView, position - center);
-	//glUniformMatrix4fv(modelPtr, 1, GL_FALSE, value_ptr(modelView));
+//	modelView = translate(modelView, position - center);
+//	glUniformMatrix4fv(modelPtr, 1, GL_FALSE, value_ptr(modelView));
 
 	glBindVertexArray(VAO);
 	glDrawArrays(GL_TRIANGLES, 0, indices.size());

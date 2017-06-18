@@ -10,6 +10,7 @@ extern mat4 rotMatrix;
 extern float scalar;
 extern bool rightClickPressed;
 extern vec2 startPosition;
-extern vec2 endPosition;
+extern vec3 cameraView;
+extern vec3 cameraEye;
 
 

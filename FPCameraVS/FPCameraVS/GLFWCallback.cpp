@@ -33,16 +33,6 @@ void GLFWCallback::keyCallback(GLFWwindow* window, int key, int scancode, int ac
 		Camera::zoomOut();
 	if (key == GLFW_KEY_PAGE_DOWN && action == GLFW_RELEASE)
 		Camera::scaleNormal();
-
-	/*	if (key == GLFW_KEY_UP && (action == GLFW_PRESS || action == GLFW_REPEAT))
-	rotMatrix = rotate(mat4(1.0f), 0.5f, vec3(1.0f, 0.0f, 0.0f)) * rotMatrix;
-	if (key == GLFW_KEY_DOWN && (action == GLFW_PRESS || action == GLFW_REPEAT))
-	rotMatrix = rotate(mat4(1.0f), 0.5f, vec3(-1.0f, 0.0f, 0.0f)) * rotMatrix;
-
-	if (key == GLFW_KEY_RIGHT && (action == GLFW_PRESS || action == GLFW_REPEAT))
-	rotMatrix = rotate(mat4(1.0f), 0.5f, vec3(0.0f, 1.0f, 0.0f)) * rotMatrix;
-	if (key == GLFW_KEY_LEFT && (action == GLFW_PRESS || action == GLFW_REPEAT))
-	rotMatrix = rotate(mat4(1.0f), 0.5f, vec3(0.0f, -1.0f, 0.0f)) * rotMatrix;*/
 }
 
 
@@ -56,16 +46,12 @@ void GLFWCallback::mouseCallback(GLFWwindow* window, int button, int action, int
 	}
 	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_RELEASE){
 		rightClickPressed = false;
-		glfwGetCursorPos(window, &xpos, &ypos);
-		endPosition = vec2(xpos, ypos);
-	}
-	if (button == GLFW_MOUSE_BUTTON_RIGHT){
-		std::cout << "start: " << startPosition.x << " " << startPosition.y << std::endl;
-		std::cout << "end: " << endPosition.x << " " << endPosition.y << std::endl;
 	}
 }
 
 void GLFWCallback::cursorPositionCallback(GLFWwindow* window, double xpos, double ypos) {
+	if (rightClickPressed)
+		Camera::rotateCamera(xpos, ypos);
 }
 
 void GLFWCallback::setGlfwCallbackFunctions(GLFWwindow* window) {

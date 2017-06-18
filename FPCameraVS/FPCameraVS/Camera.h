@@ -2,6 +2,7 @@
 
 #include "glm/gtc/type_ptr.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtx/rotate_vector.hpp"
 
 #include "GlobalConstants.h"
 #include <GLFW/glfw3.h>
@@ -9,8 +10,9 @@
 using namespace glm;
 
 class Camera {
-private:
 public:
+	Camera();
+
 	static void moveDown();
 	static void moveForward();
 	static void moveBackward();
@@ -20,4 +22,5 @@ public:
 	static void zoomIn();
 	static void zoomOut();
 	static void scaleNormal();
+	static void rotateCamera(double xpos, double ypos);
 };
