@@ -8,5 +8,8 @@ extern mat4 transMatrix;
 extern mat4 scaleMatrix;
 extern mat4 rotMatrix;
 extern float scalar;
+extern bool rightClickPressed;
+extern vec2 startPosition;
+extern vec2 endPosition;
 
 
