@@ -83,6 +83,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="GLFWCallback.h" />
     <ClInclude Include="GLFWRunner.h" />
     <ClInclude Include="GlobalConstants.h" />
     <ClInclude Include="GraphicsObject.h" />
@@ -91,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="GLFWCallback.cpp" />
     <ClCompile Include="GLFWRunner.cpp" />
     <ClCompile Include="GlobalConstants.cpp" />
     <ClCompile Include="GraphicsObject.cpp" />
