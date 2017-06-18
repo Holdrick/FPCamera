@@ -1,4 +1,5 @@
 #include "GLFWRunner.h"
+#include "GLFWCallback.h"
 
 void GLFWRunner::doGraphicsWork() {
 	shaderObject->setupShaders(vsFilename, fsFilename);
@@ -37,7 +38,7 @@ int GLFWRunner::runGLFW() {
 		glfwTerminate();
 		return 1;
 	}
-	Camera::setGlfwCallbackFunctions(window);
+	GLFWCallback::setGlfwCallbackFunctions(window);
 
 	glewExperimental = GL_TRUE;
 	GLenum err = glewInit();
